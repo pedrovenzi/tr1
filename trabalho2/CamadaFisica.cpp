@@ -1,17 +1,19 @@
 #include <iostream>
+#include "CamadaFisica.hpp";
 
 int BIT_TRAIN_SIZE = 32;
 
-void main(void) {
+int main(void) {
     AplicacaoTransmissora();
+    return 0;
 }
 
 // -----------------------Comeco da Camada Transmissora-----------------------
 
 void AplicacaoTransmissora(void) {
     std::string mensagem;
-    cout << "Digite uma mensagem:" << endl;
-    cin >> mensagem;
+    std::cout << "Digite uma mensagem:" << std::endl;
+    std::cin >> mensagem;
 
     CamadaDeAplicacaoTransmissora(mensagem);
 }
@@ -103,7 +105,7 @@ void CamadaDeAplicacaoReceptora(int quadro[]) {
 }
 
 void AplicacaoReceptora(std::string mensagem_recebida) {
-    cout << "A mensagem recebida foi:" << mensagem_recebida << endl;
+    std::cout << "A mensagem recebida foi:" << mensagem_recebida << std::endl;
 }
 
 // -----------------------Fim da Camada Receptora-----------------------
