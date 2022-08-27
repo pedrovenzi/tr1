@@ -1,8 +1,6 @@
 #include <iostream>
 #include "CamadaFisica.hpp";
 
-int BIT_TRAIN_SIZE = 32;
-
 int main(void) {
     AplicacaoTransmissora();
     return 0;
@@ -19,6 +17,12 @@ void AplicacaoTransmissora(void) {
 }
 
 void CamadaDeAplicacaoTransmissora(std::string mensagem) {
+    int quadro[];
+    uint8_t bin_char;
+
+    for (int i = 0; i < mensagem.size(); i++) {
+        bin_char = int(mensagem[i]);
+    }
 
     CamadaFisicaTransmissora(quadro);
 }
@@ -57,7 +61,7 @@ int[] CamadaFisicaTransmissoraCodificacaoBipolar(int quadro[]) {
 // -----------------------Fim da Camada Transmissora-----------------------
 
 void MeioDeComunicacao (int fluxoBrutoDeBits[]) {
-    int fluxoBrutoDeBitsPontoA[], fluxoBrutoDeBitsPontoB[];
+    uint32_t fluxoBrutoDeBitsPontoA[], fluxoBrutoDeBitsPontoB[];
 
     fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
 
