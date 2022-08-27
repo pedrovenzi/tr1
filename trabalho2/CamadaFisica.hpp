@@ -9,16 +9,16 @@
 
 void AplicacaoTransmissora(void);
 void CamadaDeAplicacaoTransmissora(std::string mensagem);
-void CamadaFisicaTransmissora(int quadro[]);
-int[] CamadaFisicaTransmissoraCodificacaoBinaria(int quadro[]);
-int[] CamadaFisicaTransmissoraCodificacaoManchester(int quadro[]);
-int[] CamadaFisicaTransmissoraCodificacaoBipolar(int quadro[]);
+void CamadaFisicaTransmissora(uint8_t quadro[]);
+int *CamadaFisicaTransmissoraCodificacaoBinaria(uint8_t quadro[]);
+int *CamadaFisicaTransmissoraCodificacaoManchester(uint8_t quadro[]);
+int *CamadaFisicaTransmissoraCodificacaoBipolar(uint8_t quadro[]);
 
-void MeioDeComunicacao (int fluxoBrutoDeBits[]);
+// void MeioDeComunicacao (int fluxoBrutoDeBits[]);
 
-void CamadaFisicaReceptora (int quadro[]);
-int[] CamadaFisicaReceptoraCodificacaoManchester (int quadro[]);
-int[] CamadaFisicaReceptoraCodificacaoBipolar(int quadro[]);
-int[] CamadaFisicaReceptoraCodificacaoBinaria (int quadro[]);
-void CamadaDeAplicacaoReceptora(int quadro[]);
-void AplicacaoReceptora(std::string mensagem_recebida);
+// void CamadaFisicaReceptora (uint8_t quadro[]);
+// int[] CamadaFisicaReceptoraCodificacaoManchester (uint8_t quadro[]);
+// int[] CamadaFisicaReceptoraCodificacaoBipolar(uint8_t quadro[]);
+// int[] CamadaFisicaReceptoraCodificacaoBinaria (uint8_t quadro[]);
+// void CamadaDeAplicacaoReceptora(uint8_t quadro[]);
+// void AplicacaoReceptora(std::string mensagem_recebida);
