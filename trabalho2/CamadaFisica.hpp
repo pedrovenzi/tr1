@@ -9,10 +9,10 @@
 
 void AplicacaoTransmissora(void);
 void CamadaDeAplicacaoTransmissora(std::string mensagem);
-void CamadaFisicaTransmissora(uint8_t quadro[]);
-int *CamadaFisicaTransmissoraCodificacaoBinaria(uint8_t quadro[]);
-int *CamadaFisicaTransmissoraCodificacaoManchester(uint8_t quadro[]);
-int *CamadaFisicaTransmissoraCodificacaoBipolar(uint8_t quadro[]);
+void CamadaFisicaTransmissora(int quadro[]);
+int *CamadaFisicaTransmissoraCodificacaoBinaria(int quadro[]);
+int *CamadaFisicaTransmissoraCodificacaoManchester(int quadro[]);
+int *CamadaFisicaTransmissoraCodificacaoBipolar(int quadro[]);
 
 // void MeioDeComunicacao (int fluxoBrutoDeBits[]);
 

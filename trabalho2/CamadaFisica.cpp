@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bitset>
 #include "CamadaFisica.hpp"
 
 int main(void) {
@@ -17,8 +18,8 @@ void AplicacaoTransmissora(void) {
 };
 
 void CamadaDeAplicacaoTransmissora(std::string mensagem) {
-    uint8_t quadro[mensagem.size()];
-    uint8_t bin_char;
+    int quadro[mensagem.size()];
+    int bin_char;
 
     for (int i = 0; i < mensagem.size(); i++) {
         bin_char = int(mensagem[i]);
@@ -28,9 +29,9 @@ void CamadaDeAplicacaoTransmissora(std::string mensagem) {
     CamadaFisicaTransmissora(quadro);
 };
 
-void CamadaFisicaTransmissora (uint8_t quadro[]) {
+void CamadaFisicaTransmissora (int quadro[]) {
     int tipoDeCodificacao = 0;
-    int tamanho_quadro = sizeof(quadro)/sizeof(uint8_t);
+    int tamanho_quadro = sizeof(quadro)/sizeof(int);
     int *fluxoBrutoDeBits;
 
     switch (tipoDeCodificacao) {
@@ -48,13 +49,14 @@ void CamadaFisicaTransmissora (uint8_t quadro[]) {
     // MeioDeComunicacao(fluxoBrutoDeBits);
 };
 
-int *CamadaFisicaTransmissoraCodificacaoBinaria(uint8_t quadro[]) {
-    int tamanho_quadro = sizeof(quadro)/sizeof(uint8_t);
+int *CamadaFisicaTransmissoraCodificacaoBinaria(int quadro[]) {
+    int tamanho_quadro = sizeof(quadro)/sizeof(quadro[0]);
     int array[tamanho_quadro * 8];
     int contador = 0;
     for (int i = 0; i < tamanho_quadro; i++){
-        for (int *j = 0; *j < 8; j++){
-            array[contador] = quadro[i][j];
+        for (int j = 0; j < 8; j++){
+            std::string bin_char_str = std::bitset<8>(quadro[i]).to_string();
+            array[contador] = char(bin_char_str[j]);
             contador++;
         }
     }
@@ -62,8 +64,8 @@ int *CamadaFisicaTransmissoraCodificacaoBinaria(uint8_t quadro[]) {
     //algoritmo de CODIFICACAO
 };
 
-int *CamadaFisicaTransmissoraCodificacaoManchester(uint8_t quadro[]) {
-    int tamanho_quadro = sizeof(quadro)/sizeof(uint8_t);
+int *CamadaFisicaTransmissoraCodificacaoManchester(int quadro[]) {
+    int tamanho_quadro = sizeof(quadro)/sizeof(int);
     int array[tamanho_quadro * 8];
     int contador = 0;
     for (int i = 0; i < tamanho_quadro; i++){
@@ -77,8 +79,8 @@ int *CamadaFisicaTransmissoraCodificacaoManchester(uint8_t quadro[]) {
     //algoritmo de CODIFICACAO
 };
 
-int *CamadaFisicaTransmissoraCodificacaoBipolar(uint8_t quadro[]) {
-    int tamanho_quadro = sizeof(quadro)/sizeof(uint8_t);
+int *CamadaFisicaTransmissoraCodificacaoBipolar(int quadro[]) {
+    int tamanho_quadro = sizeof(quadro)/sizeof(int);
     int array[tamanho_quadro * 8];
     int contador = 0;
     int polarity = 0;
@@ -106,17 +108,17 @@ int *CamadaFisicaTransmissoraCodificacaoBipolar(uint8_t quadro[]) {
 
 // // -----------------------Fim da Camada Transmissora-----------------------
 
-// void MeioDeComunicacao (int fluxoBrutoDeBits[]) {
-//     uint32_t fluxoBrutoDeBitsPontoA[], fluxoBrutoDeBitsPontoB[];
+/*void MeioDeComunicacao (int fluxoBrutoDeBits[]) {
+    uint32_t fluxoBrutoDeBitsPontoA[], fluxoBrutoDeBitsPontoB[];
 
-//     fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
+     fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
 
-//     while (fluxoBrutoDeBitsPontoB.length != fluxoBrutoDeBitsPontoA) {
-//         fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA;
-//     }
+     while (fluxoBrutoDeBitsPontoB.length != fluxoBrutoDeBitsPontoA) {
+         fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA;
+    }
 
-//     CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
-// };
+     CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
+}*/
 
 // // -----------------------Comeco da Camada Receptora-----------------------
 
