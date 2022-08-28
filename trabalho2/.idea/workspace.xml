@@ -14,7 +14,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="911f2813-2fba-43cb-975a-a806e2b97b99" name="Changes" comment="" />
+    <list default="true" id="911f2813-2fba-43cb-975a-a806e2b97b99" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,11 +56,6 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="trabalho2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="trabalho2" TARGET_NAME="trabalho2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="trabalho2" RUN_TARGET_NAME="trabalho2">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -74,7 +72,8 @@
       <updated>1661533300338</updated>
       <workItem from="1661533302714" duration="4288000" />
       <workItem from="1661621280687" duration="4444000" />
-      <workItem from="1661712891313" duration="8866000" />
+      <workItem from="1661712891313" duration="9061000" />
+      <workItem from="1661725768838" duration="10000" />
     </task>
     <servers />
   </component>
