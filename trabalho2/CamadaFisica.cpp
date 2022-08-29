@@ -1,3 +1,4 @@
+//adicionando bibliotecas necessarias;
 #include <iostream>
 #include <bitset>
 #include "CamadaFisica.hpp"
@@ -5,14 +6,19 @@
 #include <vector>
 using namespace std;
 
+//variavel global utilizada para definir qual será codificacao usada;
 int tipoDeCodificacao;
 
 // -----------------------Comeco da Camada Transmissora-----------------------
 
 void AplicacaoTransmissora(void) {
+
+    //captando mensagem a ser transmitida por meio do getline;
     string mensagem_transmitida;
     cout << "Digite uma mensagem:" << endl;
     getline(cin, mensagem_transmitida);
+
+    //captando qual sera a codificacao usada por meio do cin;
     cout << "Selecione o tipo de codificacao (0 - Binaria, 1 - Manchester, 2 - Bipolar): " << endl;
     cin >> tipoDeCodificacao;
 
@@ -22,15 +28,17 @@ void AplicacaoTransmissora(void) {
 };
 
 void CamadaDeAplicacaoTransmissora(string mensagem_transmitida) {
-    //int tamanho_quadro = mensagem_transmitida.size();
+    //declarando vetor quadro que irá guardar nossa mensagem_transmitida e variavel aux bin_char;
     vector<int> quadro;
     int bin_char;
 
+    //iterando nossa mensagem transmitida para o vetor com cada caractere passado como um inteiro da tabela ascii;
     for (int i = 0; i < mensagem_transmitida.size(); i++) {
         bin_char = int(mensagem_transmitida[i]);
         quadro.push_back(bin_char);
     }
 
+    //apresentando nossa quadro feito no loop acima;
     cout << "   Quadro montado em formato binário" << endl;
     cout << "   ";
     for (int char_code : quadro) {
@@ -44,8 +52,10 @@ void CamadaDeAplicacaoTransmissora(string mensagem_transmitida) {
 };
 
 void CamadaFisicaTransmissora (vector<int> quadro) {
+    //declarado variavel vetor de para guardar o fluxo de bits pós codificacao;
     vector<int> fluxoBrutoDeBits;
 
+    //com base na codificacao escolhida pelo input, chamar a funcao desejada
     switch (tipoDeCodificacao) {
         case 0:
             cout << "-> Chamando Codificacao Binaria..." << endl;
@@ -66,17 +76,20 @@ void CamadaFisicaTransmissora (vector<int> quadro) {
 };
 
 vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
-    //multiplicamos por 8 pois o size retorna em bytes
+    //varaivel tipo vetor para guardar os bits pós codificacao
     vector<int> fluxoBrutoDeBits;
 
+    //ALGORITMO DE CODIFICACAO
     for (int i = 0; i < (quadro.size()); i++){
-        string bin_char_str = bitset<8>(quadro[i]).to_string(); //transformar o algoritmo de ascii para binario
+        //transformar o algoritmo de ascii para binario
+        string bin_char_str = bitset<8>(quadro[i]).to_string(); 
         for (int j = 0; j < 8; j++){
             //adicionando cada bit para o nosso array
             fluxoBrutoDeBits.push_back(bin_char_str[j] - 48);
         }
     }
 
+    //imprimindo na tela o fluxo de bits pós codificacao;
     cout << "   Fluxo Bruto de Bits Resultante da Codificacao Binaria: " << endl;
     cout << "   ";
     for (int sinal : fluxoBrutoDeBits) {
@@ -84,8 +97,8 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
     }
     cout << endl << endl;
 
+    //retornando o fluxo de bits pós codificacao;
     return fluxoBrutoDeBits;
-    //algoritmo de CODIFICACAO
 };
 
 vector<int> CamadaFisicaTransmissoraCodificacaoManchester(vector<int> quadro) {
