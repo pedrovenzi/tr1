@@ -2,7 +2,7 @@
 // Created by pedrovenzi on 26/08/22.
 //
 
-#include "CamadaFisica.cpp";
+#include "CamadaFisica.hpp"
 
 int main(void) {
     AplicacaoTransmissora();

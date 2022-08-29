@@ -5,23 +5,19 @@
 #include <vector>
 using namespace std;
 
+int tipoDeCodificacao;
 
-int main(void) {
-    AplicacaoTransmissora();
-    return 0;
-};
-
-//void TransmitirMensagem(int tipoDeCodificacao) {
-
-
-//};
 // -----------------------Comeco da Camada Transmissora-----------------------
 
 void AplicacaoTransmissora(void) {
     string mensagem_transmitida;
     cout << "Digite uma mensagem:" << endl;
     getline(cin, mensagem_transmitida);
+    cout << "Selecione o tipo de codificacao (0 - Binaria, 1 - Manchester, 2 - Bipolar): " << endl;
+    cin >> tipoDeCodificacao;
 
+    cout << "Mensagem a ser transmitida: " << mensagem_transmitida << endl;
+    cout << "-> Chamando Camada De Aplicacao Transmissora..." << endl;
     CamadaDeAplicacaoTransmissora(mensagem_transmitida);
 };
 
@@ -35,25 +31,37 @@ void CamadaDeAplicacaoTransmissora(string mensagem_transmitida) {
         quadro.push_back(bin_char);
     }
 
+    cout << "   Quadro montado em formato binário" << endl;
+    cout << "   ";
+    for (int char_code : quadro) {
+        bitset<8> bin_char_code(char_code);
+        cout << bin_char_code << " ";
+    }
+    cout << endl << endl;
+
+    cout << "-> Chamando Camada Fisica Transmissora..." << endl << endl;
     CamadaFisicaTransmissora(quadro);
 };
 
 void CamadaFisicaTransmissora (vector<int> quadro) {
-    int tipoDeCodificacao = 2;
     vector<int> fluxoBrutoDeBits;
 
     switch (tipoDeCodificacao) {
         case 0:
+            cout << "-> Chamando Codificacao Binaria..." << endl;
             fluxoBrutoDeBits = CamadaFisicaTransmissoraCodificacaoBinaria(quadro);
             break;
         case 1:
+            cout << "-> Chamando Codificacao Manchester..." << endl;
             fluxoBrutoDeBits = CamadaFisicaTransmissoraCodificacaoManchester(quadro);
             break;
         case 2:
+            cout << "-> Chamando Codificacao Bipolar..." << endl;
             fluxoBrutoDeBits = CamadaFisicaTransmissoraCodificacaoBipolar(quadro);
             break;
     }
 
+    cout << "-> Chamando Meio De Comunicacao..." << endl;
     MeioDeComunicacao(fluxoBrutoDeBits);
 };
 
@@ -68,6 +76,14 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
             fluxoBrutoDeBits.push_back(bin_char_str[j] - 48);
         }
     }
+
+    cout << "   Fluxo Bruto de Bits Resultante da Codificacao Binaria: " << endl;
+    cout << "   ";
+    for (int sinal : fluxoBrutoDeBits) {
+        cout << sinal;
+    }
+    cout << endl << endl;
+
     return fluxoBrutoDeBits;
     //algoritmo de CODIFICACAO
 };
@@ -82,6 +98,14 @@ vector<int> CamadaFisicaTransmissoraCodificacaoManchester(vector<int> quadro) {
             fluxoBrutoDeBits.push_back((bin_char_str[j] ^ 1) - 48); // clock = 1
         }
     }
+
+    cout << "   Fluxo Bruto de Bits Resultante da Codificacao Manchester: " << endl;
+    cout << "   ";
+    for (int sinal : fluxoBrutoDeBits) {
+        cout << sinal;
+    }
+    cout << endl << endl;
+
     return fluxoBrutoDeBits;
     //algoritmo de CODIFICACAO
 };
@@ -110,6 +134,14 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBipolar(vector<int> quadro) {
             }
         }
     }
+
+    cout << "   Fluxo Bruto de Bits Resultante da Codificacao Bipolar: " << endl;
+    cout << "   ";
+    for (int sinal : fluxoBrutoDeBits) {
+        cout << sinal;
+    }
+    cout << endl << endl;
+
     return fluxoBrutoDeBits;
     //algoritmo de CODIFICACAO
 };
@@ -120,32 +152,50 @@ void MeioDeComunicacao(vector<int> fluxoBrutoDeBits) {
     vector<int> fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
 
     fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
+    cout << "   Fluxo Bruto de Bits no ponto A: " << endl;
+    cout << "   ";
+    for (int sinal : fluxoBrutoDeBitsPontoA) {
+        cout << sinal;
+    }
+    cout << endl << endl;
 
+    cout << "   Transferindo Bits de A para B... " << endl << endl;
     for (int i = 0; i < fluxoBrutoDeBitsPontoA.size(); i++) {
          fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]);
     }
 
-     CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
+    cout << "   Fluxo Bruto de Bits no ponto B: " << endl;
+    cout << "   ";
+    for (int sinal : fluxoBrutoDeBitsPontoA) {
+        cout << sinal;
+    }
+    cout << endl << endl;
+
+    cout << "-> Chamando Camada Fisica Receptora..." << endl << endl;
+    CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
 }
 
 // -----------------------Comeco da Camada Receptora-----------------------
 
 void CamadaFisicaReceptora (vector<int> fluxoBrutoDeBits) {
-     int tipoDeCodificacao = 2;
      vector<int> quadro;
 
      switch (tipoDeCodificacao) {
          case 0:
+             cout << "-> Chamando Decodificacao Binaria..." << endl;
              quadro = CamadaFisicaReceptoraDecodificacaoBinaria(fluxoBrutoDeBits);
              break;
          case 1:
+             cout << "-> Chamando Decodificacao Manchester..." << endl;
              quadro = CamadaFisicaReceptoraDecodificacaoManchester(fluxoBrutoDeBits);
              break;
          case 2:
+             cout << "-> Chamando Decodificacao Bipolar..." << endl;
              quadro = CamadaFisicaReceptoraDecodificacaoBipolar(fluxoBrutoDeBits);
              break;
      }
 
+     cout << "-> Chamando Camada De Aplicacao Receptora..." << endl;
      CamadaDeAplicacaoReceptora(quadro);
 };
 
@@ -162,6 +212,14 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBinaria(vector<int>  fluxoBrutoDeB
         quadro.push_back(bin_char_int);
         bin_char_str = "";
     }
+
+    cout << "   Quadro Resultante da Decodificacao Binaria: " << endl;
+    cout << "   ";
+    for (int bit : quadro) {
+        bitset<8> bin_char_code(bit);
+        cout << bin_char_code << " ";
+    }
+    cout << endl << endl;
 
     return quadro;
 };
@@ -189,6 +247,14 @@ vector<int> CamadaFisicaReceptoraDecodificacaoManchester(vector<int>  fluxoBruto
         bin_char_str = "";
     }
 
+    cout << "   Quadro Resultante da Decodificacao Manchester: " << endl;
+    cout << "   ";
+    for (int bit : quadro) {
+        bitset<8> bin_char_code(bit);
+        cout << bin_char_code << " ";
+    }
+    cout << endl << endl;
+
     return quadro;
 };
 vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int>  fluxoBrutoDeBits) {
@@ -210,6 +276,14 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int>  fluxoBrutoDeB
         bin_char_str = "";
     }
 
+    cout << "   Quadro Resultante da Decodificacao Bipolar: " << endl;
+    cout << "   ";
+    for (int bit : quadro) {
+        bitset<8> bin_char_code(bit);
+        cout << bin_char_code << " ";
+    }
+    cout << endl << endl;
+
     return quadro;
 };
 
@@ -218,16 +292,21 @@ void CamadaDeAplicacaoReceptora(vector<int> quadro) {
     string mensagem_recebida;
     string bin_char;
 
+    cout << "   Mensagem montada de acordo com codificacao ASCII: " << endl;
     for (int i = 0; i < quadro.size(); i++) {
         bin_char = char(quadro[i]);
         mensagem_recebida += bin_char;
     }
+    cout << "   " << mensagem_recebida << endl << endl;
 
-     AplicacaoReceptora(mensagem_recebida);
+    cout << "-> Chamando Camada De Aplicacao Receptora..." << endl;
+    AplicacaoReceptora(mensagem_recebida);
  };
 
 void AplicacaoReceptora(string mensagem_recebida) {
-     cout << "A mensagem recebida foi: " << mensagem_recebida << endl;
+     cout << "  A mensagem recebida foi: " << mensagem_recebida << endl;
+     cout << "  Processo finalizado." << endl;
 };
+
 
 // -----------------------Fim da Camada Receptora-----------------------

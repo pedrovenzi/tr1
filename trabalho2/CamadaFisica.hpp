@@ -5,6 +5,7 @@
 #ifndef TRABALHO2_CAMADAFISICA_HPP
 #define TRABALHO2_CAMADAFISICA_HPP
 #include <vector>
+#include <string>
 using namespace std;
 
 #endif //TRABALHO2_CAMADAFISICA_HPP

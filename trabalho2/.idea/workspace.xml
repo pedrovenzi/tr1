@@ -21,6 +21,7 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/trabalho2.dir/simulador.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/trabalho2.dir/simulador.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/trabalho2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/trabalho2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulador.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simulador.cpp" afterDir="false" />
@@ -81,7 +82,8 @@
       <workItem from="1661621280687" duration="4444000" />
       <workItem from="1661712891313" duration="9061000" />
       <workItem from="1661725768838" duration="10000" />
-      <workItem from="1661731582380" duration="6450000" />
+      <workItem from="1661731582380" duration="6917000" />
+      <workItem from="1661779307152" duration="3703000" />
     </task>
     <servers />
   </component>
