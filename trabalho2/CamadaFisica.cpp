@@ -5,6 +5,16 @@
 #include <vector>
 using namespace std;
 
+
+int main(void) {
+    AplicacaoTransmissora();
+    return 0;
+};
+
+//void TransmitirMensagem(int tipoDeCodificacao) {
+
+
+//};
 // -----------------------Comeco da Camada Transmissora-----------------------
 
 void AplicacaoTransmissora(void) {
