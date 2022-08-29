@@ -4,22 +4,23 @@
 
 #ifndef TRABALHO2_CAMADAFISICA_HPP
 #define TRABALHO2_CAMADAFISICA_HPP
+#include <vector>
 using namespace std;
 
 #endif //TRABALHO2_CAMADAFISICA_HPP
 
 void AplicacaoTransmissora(void);
 void CamadaDeAplicacaoTransmissora(string mensagem);
-void CamadaFisicaTransmissora(int quadro[], int tamanho_quadro);
-int *CamadaFisicaTransmissoraCodificacaoBinaria(int quadro[], int tamanho_quadro);
-int *CamadaFisicaTransmissoraCodificacaoManchester(int quadro[], int tamanho_quadro);
-int *CamadaFisicaTransmissoraCodificacaoBipolar(int quadro[], int tamanho_quadro);
+void CamadaFisicaTransmissora(vector<int> quadro);
+vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro);
+vector<int> CamadaFisicaTransmissoraCodificacaoManchester(vector<int> quadro);
+vector<int> CamadaFisicaTransmissoraCodificacaoBipolar(vector<int> quadro);
 
-void MeioDeComunicacao(int fluxoBrutoDeBits[], int i);
+void MeioDeComunicacao(vector<int> fluxoBrutoDeBits);
 
-// void CamadaFisicaReceptora (uint8_t quadro[]);
-// int[] CamadaFisicaReceptoraCodificacaoManchester (uint8_t quadro[]);
-// int[] CamadaFisicaReceptoraCodificacaoBipolar(uint8_t quadro[]);
-// int[] CamadaFisicaReceptoraCodificacaoBinaria (uint8_t quadro[]);
-// void CamadaDeAplicacaoReceptora(uint8_t quadro[]);
-// void AplicacaoReceptora(string mensagem_recebida);
+void CamadaFisicaReceptora (vector<int> fluxoBrutoDeBits);
+vector<int> CamadaFisicaReceptoraDecodificacaoManchester (vector<int> fluxoBrutoDeBits);
+vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int> fluxoBrutoDeBits);
+vector<int> CamadaFisicaReceptoraDecodificacaoBinaria (vector<int> fluxoBrutoDeBits);
+void CamadaDeAplicacaoReceptora(vector<int> fluxoBrutoDeBits);
+void AplicacaoReceptora(string mensagem_recebida);
