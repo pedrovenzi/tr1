@@ -1,4 +1,0 @@
-/home/pedrovenzi/Downloads/CLion-2022.1.3/clion-2022.1.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/pedrovenzi/Downloads/CLion-2022.1.3/clion-2022.1.3/bin/ninja/linux/ninja -G Ninja -S /home/pedrovenzi/Documentos/tr1/trabalho2 -B /home/pedrovenzi/Documentos/tr1/trabalho2/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /home/pedrovenzi/Documentos/tr1/trabalho2/cmake-build-debug
