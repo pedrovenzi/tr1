@@ -15,9 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="911f2813-2fba-43cb-975a-a806e2b97b99" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CamadaEnlace.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CamadaEnlace.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CamadaEnlace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/CamadaEnlace.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
       <workItem from="1661725768838" duration="10000" />
       <workItem from="1661731582380" duration="6917000" />
       <workItem from="1661779307152" duration="6814000" />
-      <workItem from="1663113623348" duration="1688000" />
+      <workItem from="1663113623348" duration="3865000" />
     </task>
     <servers />
   </component>

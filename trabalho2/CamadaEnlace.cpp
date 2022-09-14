@@ -8,11 +8,11 @@ using namespace std;
 
 // -----------------------Camada Transmissora-----------------------
 
-void CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(int quadro[]); {
+void CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(int quadro[]) {
 
 }
 
-void CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(int quadro[]); {
+void CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(int quadro[]) {
 
 }
 
