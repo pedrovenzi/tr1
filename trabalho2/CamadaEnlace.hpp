@@ -1,0 +1,8 @@
+//
+// Created by pedrovenzi on 13/09/22.
+//
+
+#ifndef TRABALHO2_CAMADAENLACE_HPP
+#define TRABALHO2_CAMADAENLACE_HPP
+
+#endif //TRABALHO2_CAMADAENLACE_HPP
