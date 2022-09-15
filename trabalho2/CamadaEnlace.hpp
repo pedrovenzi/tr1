@@ -12,12 +12,12 @@ using namespace std;
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vector<int> quadro);
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int> quadro);
-void CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro);
-void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro);
+vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro);
+//void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro);
 void CamadaEnlaceDadosTransmissora (vector<int> quadro);
-
-void CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro);
-void CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro);
-void CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro);
-void CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro);
+//
+vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro);
+vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro);
+vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro);
+//void CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro);
 void CamadaEnlaceDadosReceptora (vector<int> quadro);

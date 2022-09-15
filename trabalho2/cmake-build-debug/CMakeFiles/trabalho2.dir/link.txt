@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o CMakeFiles/trabalho2.dir/simulador.cpp.o CMakeFiles/trabalho2.dir/CamadaEnlace.cpp.o -o trabalho2 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <bitset>
 #include "CamadaEnlace.hpp"
+#include "CamadaFisica.hpp"
 #include <string>
 #include <vector>
 using namespace std;
@@ -18,26 +19,27 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vecto
 }
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
-    int contagemESC;
+    vector<int> quadroCorrigido;
     //vector<int>::iterator iteradorQuadro = quadro.begin();
 
     //Algoritmo de Enquadramento
     //Codigo DLE = 16, Codigo ESC = 27
     for (int i = 0; i < (quadro.size()); i++) {
-        if (quadro[i + contagemESC] == 27 | quadro[i + contagemESC] == 16) {
-            quadro.insert((quadro.begin() + (i + contagemESC)), 27); //codigo ASCII DLE // referencia: https://cplusplus.com/reference/vector/vector/insert/
+        if (quadro[i] == 27 | quadro[i] == 16) {
+            quadroCorrigido.push_back(27); //codigo ASCII ESC
         }
+        quadroCorrigido.push_back(quadro[i]);
     }
 
     // Insercao de Bytes (Flags)
-    quadro.insert(quadro.begin(), 16);
-    quadro.insert(quadro.end(), 16);
+    quadroCorrigido.insert(quadroCorrigido.begin(), 16);
+    quadroCorrigido.insert(quadroCorrigido.end(), 16);
 
-    return quadro;
+    return quadroCorrigido;
 
 }
 
-void CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
+vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
     vector<int> quadroEnquadrado;
 
     switch (tipoDeEnquadramento) {
@@ -48,35 +50,37 @@ void CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
             quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(quadro);
             break;
     }
+
+    return quadroEnquadrado;
 }
 
-void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
-
-
-};
+//void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
+//
+//
+//};
 
 void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
+    vector<int> quadroEnquadrado;
 
-    CamadaEnlaceDadosTransmissoraEnquadramento(quadro);
+    quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramento(quadro);
 
     //CamadaEnlaceDadosTransmissoraControleDeErro(quadro)
 
-    //CamadaFisicaTransmissora(quadro)
+    CamadaFisicaTransmissora(quadroEnquadrado);
 }
 
 // -----------------------Camada Receptora-----------------------
 
-void CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
+vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
 
 }
 
-void CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
+vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
 
 }
 
-void CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
-    int tipoDeEnquadramento = 0;
-    int quadroEnquadrado [];
+vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
+    vector<int> quadroEnquadrado;
 
     switch (tipoDeEnquadramento) {
         case 0: //Contagem de Caracteres
@@ -88,16 +92,17 @@ void CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
     }
 }
 
-void CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
-
-
-};
+//void CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
+//
+//
+//};
 
 void CamadaEnlaceDadosReceptora (vector<int> quadro) {
+    vector<int> quadroDesenquadrado;
 
-    CamadaEnlaceDadosReceptoraEnquadramento(quadro);
+    quadroDesenquadrado = CamadaEnlaceDadosReceptoraEnquadramento(quadro);
 
     //CamadaEnlaceDadosReceptoraControleDeErro(quadro)
 
-    //CamadaDeAplicacaoReceptora(quadro)
+    CamadaDeAplicacaoReceptora(quadroDesenquadrado)
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <bitset>
 #include "CamadaFisica.hpp"
+#include "CamadaEnlace.hpp"
 #include <string>
 #include <vector>
 using namespace std;
@@ -47,8 +48,8 @@ void CamadaDeAplicacaoTransmissora(string mensagem_transmitida) {
     }
     cout << endl << endl;
 
-    cout << "-> Chamando Camada Fisica Transmissora..." << endl << endl;
-    CamadaFisicaTransmissora(quadro);
+//    cout << "-> Chamando Camada Fisica Transmissora..." << endl << endl;
+    CamadaEnlaceDadosTransmissora(quadro);
 };
 
 void CamadaFisicaTransmissora (vector<int> quadro) {
@@ -224,8 +225,9 @@ void CamadaFisicaReceptora (vector<int> fluxoBrutoDeBits) {
              break;
      }
 
-     cout << "-> Chamando Camada De Aplicacao Receptora..." << endl;
-     CamadaDeAplicacaoReceptora(quadro);
+//     cout << "-> Chamando Camada De Aplicacao Receptora..." << endl;
+//     CamadaDeAplicacaoReceptora(quadro);
+    CamadaEnlaceDadosReceptora(quadro);
 };
 
 vector<int> CamadaFisicaReceptoraDecodificacaoBinaria(vector<int>  fluxoBrutoDeBits) {
