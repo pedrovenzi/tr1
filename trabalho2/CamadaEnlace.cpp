@@ -72,10 +72,33 @@ void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
 // -----------------------Camada Receptora-----------------------
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
+    vector<int> quadroDesenquadrado;
+    int indexQuadro = 0;
 
+    //Algoritmo de Desequadramento
+    //Codigo DLE = 16, Codigo ESC = 27
+    if (quadro[0] == 16) {
+        indexQuadro++;
+
+        while (true) {
+            if (quadro[indexQuadro] == 16) {
+                break;
+            } else if (quadro[indexQuadro] == 27) {
+                indexQuadro += 2;
+            } else {
+                quadroDesenquadrado.push_back(quadro[indexQuadro]);
+                indexQuadro++;
+            }
+        }
+
+        return quadroDesenquadrado;
+    } else {
+        cout << "Quadro não começa com flag designada." << endl;
+    }
 }
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
+
 
 }
 
