@@ -54,10 +54,38 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
     return quadroEnquadrado;
 }
 
-//void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
-//
-//
-//};
+vector<int> CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadro) {
+    int somaQuadro = 0;
+
+    for (int i = 0; i < quadro.size(); i++) {
+        somaQuadro += quadro[i];
+        //transformar em bit? aqui ta somando o byte. nao importa pra soma, mas talvez importe pro insert
+    }
+
+    quadro.insert(quadro.end(), (somaQuadro % 2));
+}
+
+vector<int> CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
+    int polinomioGerador = 9; // 1001 - comeca e termina com bit 1
+    //string polinomioStr = bitset<4>(polinomioGerador).to_string();
+
+    //divisao com XOR
+
+}
+
+void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
+    int tipoDeControleDeErro = 0;
+    vector<int> quadroControlado;
+
+    switch (tipoDeControleDeErro) {
+        case 0:
+            quadroControlado = CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade(quadro);
+            break;
+        case 1:
+            quadroControlado = CamadaEnlaceDadosTransmissoraControleDeErroCRC(quadro);
+
+    }
+}
 
 void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
     vector<int> quadroEnquadrado;
@@ -114,11 +142,44 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
             break;
     }
 }
+vector<int> CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade (vector<int> quadro) {
+    int somaQuadro = 0;
 
-//void CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
-//
-//
-//};
+    for (int i = 0; i < quadro.size(); i++) {
+        somaQuadro += quadro[i];
+        //transformar em bit? aqui ta somando o byte. nao importa pra soma, mas talvez importe pro insert
+    }
+
+    if ((somaQuadro % 2) == quadro[quadro.size()]) {
+        quadro.pop_back();
+    } else {
+        cout << "Erro: Bit de paridade incompatível" << endl;
+    }
+
+    return quadro;
+}
+
+vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
+    int polinomioGerador = 9; // 1001 - comeca e termina com bit 1
+    //string polinomioStr = bitset<4>(polinomioGerador).to_string();
+
+    //divisao com XOR
+
+}
+
+vector<int> CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
+    int tipoDeControleDeErro = 0;
+    vector<int> quadroChecado;
+
+    switch (tipoDeControleDeErro) {
+        case 0:
+            quadroChecado = CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade(quadro);
+            break;
+        case 1:
+            quadroChecado = CamadaEnlaceDadosReceptoraControleDeErroCRC(quadro);
+
+    }
+}
 
 void CamadaEnlaceDadosReceptora (vector<int> quadro) {
     vector<int> quadroDesenquadrado;
