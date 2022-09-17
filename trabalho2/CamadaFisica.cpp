@@ -94,6 +94,12 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
         fluxoBrutoDeBits.push_back(bitParidade);
     }
 
+    if (crc != "") {
+        for (int i = 0; i < (crc.size()); i++){
+            fluxoBrutoDeBits.push_back(crc[i]);
+        }
+    }
+
 
     //imprimindo na tela o fluxo de bits pós codificacao;
     cout << "   Fluxo Bruto de Bits Resultante da Codificacao Binaria: " << endl;
@@ -125,6 +131,13 @@ vector<int> CamadaFisicaTransmissoraCodificacaoManchester(vector<int> quadro) {
     if (bitParidade != -1) {
         fluxoBrutoDeBits.push_back(bitParidade ^ 0);
         fluxoBrutoDeBits.push_back(bitParidade ^ 1);
+    }
+
+    if (crc != "") {
+        for (int i = 0; i < (crc.size()); i++){
+            fluxoBrutoDeBits.push_back((crc[i] ^ 0) - 48);
+            fluxoBrutoDeBits.push_back((crc[i] ^ 1) - 48);
+        }
     }
 
 //    fluxoBrutoDeBits.insert(fluxo.begin()+0, hamming[0]) // gambiarra para hamming com vetor de bits de paridade
@@ -190,6 +203,26 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBipolar(vector<int> quadro) {
         }
     }
 
+    if (crc != "") {
+        for (int i = 0; i < (crc.size()); i++){
+            if ((crc[i] - 48) == 0){
+                fluxoBrutoDeBits.push_back(0);
+            }
+            else {
+                switch (polaridade) {
+                    case 0:
+                        fluxoBrutoDeBits.push_back(1);
+                        polaridade = 1;
+                        break;
+                    case 1:
+                        fluxoBrutoDeBits.push_back(-1);
+                        polaridade = 0;
+                        break;
+                }
+            }
+        }
+    }
+
     //imprimindo na tela o fluxo de bits pós codificacao;
     cout << "   Fluxo Bruto de Bits Resultante da Codificacao Bipolar: " << endl;
     cout << "   ";
@@ -206,7 +239,10 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBipolar(vector<int> quadro) {
 
 void MeioDeComunicacao(vector<int> fluxoBrutoDeBits) {
     //varaiveis do tipo vetor para simular a ida dos bits de um ponto para outro;
+    int erro, porcentagemDeErros;
     vector<int> fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
+
+    porcentagemDeErros = 1;
 
     //imprimindo bits que estao no ponto A;
     fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
@@ -220,7 +256,19 @@ void MeioDeComunicacao(vector<int> fluxoBrutoDeBits) {
     //Passando cada bit presente no ponto A para o nosso vetor simulando ponto B;
     cout << "   Transferindo Bits de A para B... " << endl << endl;
     for (int i = 0; i < fluxoBrutoDeBitsPontoA.size(); i++) {
-         fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]);
+        if (porcentagemDeErros != 0) {
+            if ((rand() % (100 / porcentagemDeErros)) != 0) {
+                fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]);
+            }
+            else {
+                fluxoBrutoDeBitsPontoA[i] == 0 ?
+                fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]++) :
+                fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]--);
+            }
+        }
+        else {
+            fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]);
+        }
     }
 
     //imprimindo bits que estao no ponto A;

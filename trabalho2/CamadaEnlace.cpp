@@ -114,7 +114,7 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
         swap(resto[j], resto[resto.length() - j - 1]);
     }
 
-    cout << resto << endl;
+    crc = resto;
 
 }
 
@@ -126,25 +126,28 @@ void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
             break;
         case 1:
             CamadaEnlaceDadosTransmissoraControleDeErroCRC(quadro);
-
+            break;
     }
 }
 
 void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
-//    vector<int> quadroEnquadrado;
-//    vector<int> quadroControlado;
-//
-//    quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramento(quadro);
-//
-//    quadroControlado =
-    CamadaEnlaceDadosTransmissoraControleDeErro(quadro);
+    vector<int> quadroEnquadrado;
+    vector<int> quadroControlado;
 
-    CamadaFisicaTransmissora(quadro);
+    quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramento(quadro);
+
+    CamadaEnlaceDadosTransmissoraControleDeErro(quadroEnquadrado);
+
+    CamadaFisicaTransmissora(quadroEnquadrado);
 }
 
 // -----------------------Camada Receptora-----------------------
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
+
+}
+
+vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
     vector<int> quadroDesenquadrado;
     int indexQuadro = 0;
 
@@ -168,11 +171,6 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<i
     } else {
         cout << "Quadro não começa com flag designada." << endl;
     }
-}
-
-vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
-
-
 }
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
@@ -205,10 +203,49 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade (vector<int> q
 }
 
 vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
-    int polinomioGerador = 9; // 1001 - comeca e termina com bit 1
-    //string polinomioStr = bitset<4>(polinomioGerador).to_string();
+    ulong polinomioGerador = 4374732215; // CRC-32
+    string polinomioStr = bitset<33>(polinomioGerador).to_string();
+    string quadroCompleto = "";
+    string resto = "";
+    string crc_check = "";
 
-    //divisao com XOR
+    for (int i = 0; i < (quadro.size() - 4); i++) {
+        string binchar = bitset<8>(quadro[i]).to_string();
+        for (int j = 0; j < (binchar.length() / 2); j++){
+            swap(binchar[j], binchar[binchar.length() - j - 1]);
+        }
+        quadroCompleto += binchar;
+    }
+
+    quadroCompleto += "00000000000000000000000000000000";
+    cout << quadroCompleto << endl;
+
+    for (int i = 0; i < 32; i++) {
+        quadroCompleto[i] = (quadroCompleto[i]^1);
+    }
+
+    for (int i = 0; i < (quadroCompleto.size() - 33); i++) {
+        if (quadroCompleto[i] != '0') {
+            resto = quadroCompleto.substr(i, 33);
+            for (int j = 0; j < 33; j++) {
+                resto[j] = (resto[j] ^ (polinomioStr[j] - 48));
+            }
+            quadroCompleto.replace(i, 33, resto);
+        }
+    }
+
+    resto = quadroCompleto.substr(quadroCompleto.size() - 32, 32);
+    cout << resto << endl;
+
+    for (int i = 0; i < 32; i++) {
+        resto[i] = (resto[i]^1);
+    }
+
+    for (int j = 0; j < (resto.length() / 2); j++){
+        swap(resto[j], resto[resto.length() - j - 1]);
+    }
+
+    crc = resto;
 
 }
 
