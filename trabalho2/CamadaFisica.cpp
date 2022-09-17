@@ -90,6 +90,11 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
         }
     }
 
+    if (bitParidade != -1) {
+        fluxoBrutoDeBits.push_back(bitParidade)
+    }
+
+
     //imprimindo na tela o fluxo de bits pós codificacao;
     cout << "   Fluxo Bruto de Bits Resultante da Codificacao Binaria: " << endl;
     cout << "   ";
@@ -116,6 +121,12 @@ vector<int> CamadaFisicaTransmissoraCodificacaoManchester(vector<int> quadro) {
             fluxoBrutoDeBits.push_back((bin_char_str[j] ^ 1) - 48); // clock = 1
         }
     }
+
+    if (bitParidade != -1) {
+        fluxoBrutoDeBits.push_back(bitParidade ^ 0)
+        fluxoBrutoDeBits.push_back(bitParidade ^ 1)
+    }
+
     //imprimindo na tela o fluxo de bits pós codificacao;
     cout << "   Fluxo Bruto de Bits Resultante da Codificacao Manchester: " << endl;
     cout << "   ";
@@ -154,6 +165,22 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBipolar(vector<int> quadro) {
                         break;
                 }
             }
+        }
+    }
+
+    if (bitParidade == 0) {
+        fluxoBrutoDeBits.push_back(0);
+    }
+    else if (bitParidade == 1) {
+        switch (polaridade) {
+            case 0:
+                fluxoBrutoDeBits.push_back(1);
+                polaridade = 1;
+                break;
+            case 1:
+                fluxoBrutoDeBits.push_back(-1);
+                polaridade = 0;
+                break;
         }
     }
 

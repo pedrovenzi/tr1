@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/iiiqwertyiii/TR1/tr1/trabalho2/CamadaEnlace.cpp" "CMakeFiles/trabalho2.dir/CamadaEnlace.cpp.o" "gcc" "CMakeFiles/trabalho2.dir/CamadaEnlace.cpp.o.d"
-  "/home/iiiqwertyiii/TR1/tr1/trabalho2/CamadaFisica.cpp" "CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o" "gcc" "CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o.d"
-  "/home/iiiqwertyiii/TR1/tr1/trabalho2/simulador.cpp" "CMakeFiles/trabalho2.dir/simulador.cpp.o" "gcc" "CMakeFiles/trabalho2.dir/simulador.cpp.o.d"
+  "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/CamadaEnlace.cpp" "CMakeFiles/trabalho2.dir/CamadaEnlace.cpp.o" "gcc" "CMakeFiles/trabalho2.dir/CamadaEnlace.cpp.o.d"
+  "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/CamadaFisica.cpp" "CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o" "gcc" "CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o.d"
+  "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/simulador.cpp" "CMakeFiles/trabalho2.dir/simulador.cpp.o" "gcc" "CMakeFiles/trabalho2.dir/simulador.cpp.o.d"
   )
 
 # Targets to which this target links.

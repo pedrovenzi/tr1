@@ -10,6 +10,8 @@ using namespace std;
 
 #endif //TRABALHO2_CAMADAENLACE_HPP
 
+extern int bitParidade;
+
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vector<int> quadro);
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int> quadro);
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro);

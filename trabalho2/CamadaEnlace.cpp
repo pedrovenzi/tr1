@@ -9,6 +9,10 @@ using namespace std;
 
 //variavel global utilizada para definir qual será o tipo de enquadramento usado;
 int tipoDeEnquadramento = 0;
+//variavel global utilizada para definir qual será o tipo de controle de erro usado;
+int tipoDeControleDeErro = 0;
+//variavel global utilizada para definir bit de paridade;
+int bitParidade = -1; //Para que saibamos que não utilizamos o controle de erro por bit de paridade, definimos como -1;
 
 // -----------------------Camada Transmissora-----------------------
 
@@ -62,7 +66,7 @@ vector<int> CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int
         //transformar em bit? aqui ta somando o byte. nao importa pra soma, mas talvez importe pro insert
     }
 
-    quadro.insert(quadro.end(), (somaQuadro % 2));
+    bitParidade = somaQuadro % 2;
 }
 
 vector<int> CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
@@ -74,7 +78,6 @@ vector<int> CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) 
 }
 
 void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
-    int tipoDeControleDeErro = 0;
     vector<int> quadroControlado;
 
     switch (tipoDeControleDeErro) {
@@ -89,10 +92,11 @@ void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
 
 void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
     vector<int> quadroEnquadrado;
+    vector<int> quadroControlado;
 
     quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramento(quadro);
 
-    //CamadaEnlaceDadosTransmissoraControleDeErro(quadro)
+    quadroControlado = CamadaEnlaceDadosTransmissoraControleDeErro(quadroEnquadrado)
 
     CamadaFisicaTransmissora(quadroEnquadrado);
 }
