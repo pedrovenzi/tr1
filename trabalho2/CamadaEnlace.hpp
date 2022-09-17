@@ -11,13 +11,14 @@ using namespace std;
 #endif //TRABALHO2_CAMADAENLACE_HPP
 
 extern int bitParidade;
+extern string crc;
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vector<int> quadro);
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int> quadro);
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro);
-vector<int> CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadro);
-vector<int> CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro);
-vector<int> CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro);
+void CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadro);
+void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro);
+void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro);
 void CamadaEnlaceDadosTransmissora (vector<int> quadro);
 //
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro);

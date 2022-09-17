@@ -439,3 +439,37 @@ Parsed CXX implicit link information from above output:
   implicit fwks: []
 
 
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeeded with the following output:
+Change Dir: /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_7f918/fast && make[1]: Entering directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+/usr/bin/make  -f CMakeFiles/cmTC_7f918.dir/build.make CMakeFiles/cmTC_7f918.dir/build
+make[2]: Entering directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_7f918.dir/src.cxx.o
+/usr/bin/c++ -DCOMPILER_SUPPORTS_CXX11  -Wall   -O3 -march=native    -std=c++11 -o CMakeFiles/cmTC_7f918.dir/src.cxx.o -c /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_7f918
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7f918.dir/link.txt --verbose=1
+/usr/bin/c++  -Wall   -O3 -march=native  CMakeFiles/cmTC_7f918.dir/src.cxx.o -o cmTC_7f918 
+make[2]: Leaving directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX0X succeeded with the following output:
+Change Dir: /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_94991/fast && make[1]: Entering directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+/usr/bin/make  -f CMakeFiles/cmTC_94991.dir/build.make CMakeFiles/cmTC_94991.dir/build
+make[2]: Entering directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_94991.dir/src.cxx.o
+/usr/bin/c++ -DCOMPILER_SUPPORTS_CXX0X  -Wall   -O3 -march=native    -std=c++0x -o CMakeFiles/cmTC_94991.dir/src.cxx.o -c /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_94991
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_94991.dir/link.txt --verbose=1
+/usr/bin/c++  -Wall   -O3 -march=native  CMakeFiles/cmTC_94991.dir/src.cxx.o -o cmTC_94991 
+make[2]: Leaving directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }

@@ -5,14 +5,17 @@
 #include "CamadaFisica.hpp"
 #include <string>
 #include <vector>
+#include <cstdlib>
 using namespace std;
 
 //variavel global utilizada para definir qual será o tipo de enquadramento usado;
 int tipoDeEnquadramento = 0;
 //variavel global utilizada para definir qual será o tipo de controle de erro usado;
-int tipoDeControleDeErro = 0;
+int tipoDeControleDeErro = 1;
 //variavel global utilizada para definir bit de paridade;
 int bitParidade = -1; //Para que saibamos que não utilizamos o controle de erro por bit de paridade, definimos como -1;
+//variavel global utilizada para definir CRC;
+string crc = "";
 
 // -----------------------Camada Transmissora-----------------------
 
@@ -58,7 +61,7 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
     return quadroEnquadrado;
 }
 
-vector<int> CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadro) {
+void CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadro) {
     int somaQuadro = 0;
 
     for (int i = 0; i < quadro.size(); i++) {
@@ -69,36 +72,74 @@ vector<int> CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int
     bitParidade = somaQuadro % 2;
 }
 
-vector<int> CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
-    int polinomioGerador = 9; // 1001 - comeca e termina com bit 1
-    //string polinomioStr = bitset<4>(polinomioGerador).to_string();
+void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
+    ulong polinomioGerador = 4374732215; // CRC-32
+    string polinomioStr = bitset<33>(polinomioGerador).to_string();
+    string quadroCompleto = "";
+    string resto = "";
 
-    //divisao com XOR
+    for (int i = 0; i < quadro.size(); i++) {
+        string binchar = bitset<8>(quadro[i]).to_string();
+        for (int j = 0; j < (binchar.length() / 2); j++){
+            swap(binchar[j], binchar[binchar.length() - j - 1]);
+        }
+        quadroCompleto += binchar;
+    }
+
+    quadroCompleto += "00000000000000000000000000000000";
+    cout << quadroCompleto << endl;
+
+    for (int i = 0; i < 32; i++) {
+        quadroCompleto[i] = (quadroCompleto[i]^1);
+    }
+
+    for (int i = 0; i < (quadroCompleto.size() - 33); i++) {
+        if (quadroCompleto[i] != '0') {
+            resto = quadroCompleto.substr(i, 33);
+            for (int j = 0; j < 33; j++) {
+                resto[j] = (resto[j] ^ (polinomioStr[j] - 48));
+            }
+            quadroCompleto.replace(i, 33, resto);
+        }
+    }
+
+    resto = quadroCompleto.substr(quadroCompleto.size() - 32, 32);
+    cout << resto << endl;
+
+    for (int i = 0; i < 32; i++) {
+        resto[i] = (resto[i]^1);
+    }
+
+    for (int j = 0; j < (resto.length() / 2); j++){
+        swap(resto[j], resto[resto.length() - j - 1]);
+    }
+
+    cout << resto << endl;
 
 }
 
 void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
-    vector<int> quadroControlado;
 
     switch (tipoDeControleDeErro) {
         case 0:
-            quadroControlado = CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade(quadro);
+            CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade(quadro);
             break;
         case 1:
-            quadroControlado = CamadaEnlaceDadosTransmissoraControleDeErroCRC(quadro);
+            CamadaEnlaceDadosTransmissoraControleDeErroCRC(quadro);
 
     }
 }
 
 void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
-    vector<int> quadroEnquadrado;
-    vector<int> quadroControlado;
+//    vector<int> quadroEnquadrado;
+//    vector<int> quadroControlado;
+//
+//    quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramento(quadro);
+//
+//    quadroControlado =
+    CamadaEnlaceDadosTransmissoraControleDeErro(quadro);
 
-    quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramento(quadro);
-
-    quadroControlado = CamadaEnlaceDadosTransmissoraControleDeErro(quadroEnquadrado)
-
-    CamadaFisicaTransmissora(quadroEnquadrado);
+    CamadaFisicaTransmissora(quadro);
 }
 
 // -----------------------Camada Receptora-----------------------
@@ -192,5 +233,5 @@ void CamadaEnlaceDadosReceptora (vector<int> quadro) {
 
     //CamadaEnlaceDadosReceptoraControleDeErro(quadro)
 
-    CamadaDeAplicacaoReceptora(quadroDesenquadrado)
+    CamadaDeAplicacaoReceptora(quadroDesenquadrado);
 }

@@ -91,7 +91,7 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
     }
 
     if (bitParidade != -1) {
-        fluxoBrutoDeBits.push_back(bitParidade)
+        fluxoBrutoDeBits.push_back(bitParidade);
     }
 
 
@@ -123,9 +123,15 @@ vector<int> CamadaFisicaTransmissoraCodificacaoManchester(vector<int> quadro) {
     }
 
     if (bitParidade != -1) {
-        fluxoBrutoDeBits.push_back(bitParidade ^ 0)
-        fluxoBrutoDeBits.push_back(bitParidade ^ 1)
+        fluxoBrutoDeBits.push_back(bitParidade ^ 0);
+        fluxoBrutoDeBits.push_back(bitParidade ^ 1);
     }
+
+//    fluxoBrutoDeBits.insert(fluxo.begin()+0, hamming[0]) // gambiarra para hamming com vetor de bits de paridade
+//
+//    for (hamming) {
+//        fluxoBrutoDeBits.insert(fluxo.begin() + (2 ** i), hamming[i+1]) // inserir paridade no fluxo de bits
+//    }
 
     //imprimindo na tela o fluxo de bits pós codificacao;
     cout << "   Fluxo Bruto de Bits Resultante da Codificacao Manchester: " << endl;
