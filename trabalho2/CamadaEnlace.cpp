@@ -76,6 +76,7 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
     string quadroCompleto = "";
     string resto = "";
 
+    //inversão de todos os bytes do nosso quadro
     for (int i = 0; i < quadro.size(); i++) {
         string binchar = bitset<8>(quadro[i]).to_string();
         for (int j = 0; j < (binchar.length() / 2); j++){
@@ -84,13 +85,18 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
         quadroCompleto += binchar;
     }
 
+    //adicao de 32 bits '0' no final do nosso dado
     quadroCompleto += "00000000000000000000000000000000";
     cout << quadroCompleto << endl;
 
+    //'xor' (ou invertido) dos 4 primeiros bytes com o 0xFFFFFFFF
     for (int i = 0; i < 32; i++) {
         quadroCompleto[i] = (quadroCompleto[i]^1);
     }
 
+    //divisao do dado utilizando o polinomio gerador do crc-32.
+    //Caso nosso dado comece com zero no momento da divisão, ele é ignorado. Caso contrario segue o algoritmo abaixo
+    //Essa divisã é feita com xor
     for (int i = 0; i < (quadroCompleto.size() - 33); i++) {
         if (quadroCompleto[i] != '0') {
             resto = quadroCompleto.substr(i, 33);
@@ -104,10 +110,12 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
     resto = quadroCompleto.substr(quadroCompleto.size() - 32, 32);
     cout << resto << endl;
 
+    //flip dos bits
     for (int i = 0; i < 32; i++) {
         resto[i] = (resto[i]^1);
     }
 
+    //reverter todos os bits
     for (int j = 0; j < (resto.length() / 2); j++){
         swap(resto[j], resto[resto.length() - j - 1]);
     }
@@ -230,6 +238,7 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
     string crc_check = "";
     vector<int> subvector = {quadro.begin(), quadro.end() - 4};
 
+    //inversão de todos os bytes do nosso quadro
     for (int i = 0; i < (quadro.size() - 4); i++) {
         string binchar = bitset<8>(quadro[i]).to_string();
         for (int j = 0; j < (binchar.length() / 2); j++){
@@ -245,6 +254,9 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
         quadroCompleto[i] = (quadroCompleto[i]^1);
     }
 
+    //divisao do dado utilizando o polinomio gerador do crc-32.
+    //Caso nosso dado comece com zero no momento da divisão, ele é ignorado. Caso contrario segue o algoritmo abaixo
+    //Essa divisã é feita com xor
     for (int i = 0; i < (quadroCompleto.size() - 33); i++) {
         if (quadroCompleto[i] != '0') {
             resto = quadroCompleto.substr(i, 33);
@@ -258,10 +270,12 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
     resto = quadroCompleto.substr(quadroCompleto.size() - 32, 32);
     cout << resto << endl;
 
+    //flip dos bits
     for (int i = 0; i < 32; i++) {
         resto[i] = (resto[i]^1);
     }
 
+    //revertendo os bits
     for (int j = 0; j < (resto.length() / 2); j++){
         swap(resto[j], resto[resto.length() - j - 1]);
     }
@@ -271,6 +285,7 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
 
     crc_check = resto;
 
+    //verificacao se o crc está correto
     if (crc == crc_check){
         return subvector;
     }
