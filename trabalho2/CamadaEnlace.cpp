@@ -148,7 +148,8 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<i
     catch(int e){
         cout << "Tamanho quadro errado" << e << endl;
     }
-    return quadro;
+    vector<int> quadroDescontado = {quadro.begin() + 1, quadro.end()};
+    return quadroDescontado;
 }
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {

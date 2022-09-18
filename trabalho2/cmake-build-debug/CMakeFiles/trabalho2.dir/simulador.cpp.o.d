@@ -1,7 +1,7 @@
 CMakeFiles/trabalho2.dir/simulador.cpp.o: \
- /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/simulador.cpp \
+ /home/gabrielcruz/Unb/tr1/trabalho2/simulador.cpp \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/CamadaFisica.hpp \
+ /home/gabrielcruz/Unb/tr1/trabalho2/CamadaFisica.hpp \
  /usr/include/c++/9/vector /usr/include/c++/9/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/os_defines.h \

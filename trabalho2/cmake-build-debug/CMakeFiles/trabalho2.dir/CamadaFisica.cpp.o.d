@@ -1,5 +1,5 @@
 CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o: \
- /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/CamadaFisica.cpp \
+ /home/gabrielcruz/Unb/tr1/trabalho2/CamadaFisica.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/9/iostream \
  /usr/include/x86_64-linux-gnu/c++/9/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/os_defines.h \
@@ -136,9 +136,9 @@ CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o: \
  /usr/include/c++/9/bits/basic_ios.tcc \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
  /usr/include/c++/9/bits/istream.tcc /usr/include/c++/9/bitset \
- /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/CamadaFisica.hpp \
+ /home/gabrielcruz/Unb/tr1/trabalho2/CamadaFisica.hpp \
  /usr/include/c++/9/vector /usr/include/c++/9/bits/stl_construct.h \
  /usr/include/c++/9/bits/stl_uninitialized.h \
  /usr/include/c++/9/bits/stl_vector.h \
  /usr/include/c++/9/bits/stl_bvector.h /usr/include/c++/9/bits/vector.tcc \
- /mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/CamadaEnlace.hpp
+ /home/gabrielcruz/Unb/tr1/trabalho2/CamadaEnlace.hpp

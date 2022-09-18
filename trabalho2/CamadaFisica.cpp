@@ -10,6 +10,12 @@ using namespace std;
 //variavel global utilizada para definir qual será codificacao usada;
 int tipoDeCodificacao;
 
+//variavel global utilizada para definir tipoDeEnquadramento;
+int tipoDeEnquadramento;
+
+//variavel global utilizada para definir qual o tipo de controle de erro utilizado;
+int tipoDeControleDeErro;
+
 // -----------------------Comeco da Camada Transmissora-----------------------
 
 void AplicacaoTransmissora(void) {
@@ -99,7 +105,7 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
     }
 
     if (bitParidade != -1) {
-        fluxoBrutoDeBits.push_back(bitParidade - 48);
+        fluxoBrutoDeBits.push_back(bitParidade); //tirando - 48
     }
 
     if (crc != "") {
@@ -250,7 +256,7 @@ void MeioDeComunicacao(vector<int> fluxoBrutoDeBits) {
     int erro, porcentagemDeErros;
     vector<int> fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
 
-    porcentagemDeErros = 1;
+    porcentagemDeErros = 0;
 
     //imprimindo bits que estao no ponto A;
     fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
@@ -330,7 +336,7 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBinaria(vector<int>  fluxoBrutoDeB
         retirar_paridade = 1;
     }
 
-    for (int i = 0; i < ((fluxoBrutoDeBits.size() / 8) - retirar_paridade); i++) {
+    for (int i = 0; i < ((fluxoBrutoDeBits.size() - retirar_paridade) / 8 ); i++) {
         for (int j = 0; j < 8; j++) {
             bin_char_str += (fluxoBrutoDeBits[j + (i * 8)] + 48);
         }
@@ -341,7 +347,7 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBinaria(vector<int>  fluxoBrutoDeB
     }
 
     if (retirar_paridade == 1){
-        bitParidade = fluxoBrutoDeBits[-1];
+        bitParidade = fluxoBrutoDeBits.back();
     }
 
 

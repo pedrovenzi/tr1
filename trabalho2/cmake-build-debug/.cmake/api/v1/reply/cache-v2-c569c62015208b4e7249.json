@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug"
+			"value" : "/home/gabrielcruz/Unb/tr1/trabalho2/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "24"
+			"value" : "23"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "1"
+			"value" : "2"
 		},
 		{
 			"name" : "CMAKE_CODEBLOCKS_COMPILER_ID",
@@ -127,15 +127,19 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "-j12"
+			"value" : "-j4"
 		},
 		{
-			"name" : "CMAKE_COLOR_DIAGNOSTICS",
+			"name" : "CMAKE_COLOR_MAKEFILE",
 			"properties" : 
 			[
 				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
 					"name" : "HELPSTRING",
-					"value" : "Enable colored diagnostics throughout."
+					"value" : "Enable/Disable color output during build."
 				}
 			],
 			"type" : "BOOL",
@@ -151,7 +155,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/bin/cmake"
+			"value" : "/snap/clion/206/bin/cmake/linux/bin/cmake"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -163,7 +167,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/bin/cpack"
+			"value" : "/snap/clion/206/bin/cmake/linux/bin/cpack"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -175,7 +179,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/bin/ctest"
+			"value" : "/snap/clion/206/bin/cmake/linux/bin/ctest"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER",
@@ -618,18 +622,6 @@
 			"value" : "/usr/lib/gcc/x86_64-linux-gnu/9/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include"
 		},
 		{
-			"name" : "CMAKE_FIND_PACKAGE_REDIRECTS_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake."
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug/CMakeFiles/pkgRedirects"
-		},
-		{
 			"name" : "CMAKE_GENERATOR",
 			"properties" : 
 			[
@@ -687,7 +679,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2"
+			"value" : "/home/gabrielcruz/Unb/tr1/trabalho2"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -975,7 +967,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/share/cmake-3.24"
+			"value" : "/snap/clion/206/bin/cmake/linux/share/cmake-3.23"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1214,30 +1206,6 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "COMPILER_SUPPORTS_CXX0X",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Test COMPILER_SUPPORTS_CXX0X"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "1"
-		},
-		{
-			"name" : "COMPILER_SUPPORTS_CXX11",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Test COMPILER_SUPPORTS_CXX11"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "1"
-		},
-		{
 			"name" : "ProcessorCount_cmd_nproc",
 			"properties" : 
 			[
@@ -1270,18 +1238,6 @@
 			"value" : "/usr/sbin/sysctl"
 		},
 		{
-			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "linker supports push/pop state"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "TRUE"
-		},
-		{
 			"name" : "trabalho2_BINARY_DIR",
 			"properties" : 
 			[
@@ -1291,7 +1247,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2/cmake-build-debug"
+			"value" : "/home/gabrielcruz/Unb/tr1/trabalho2/cmake-build-debug"
 		},
 		{
 			"name" : "trabalho2_IS_TOP_LEVEL",
@@ -1315,7 +1271,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/nicpa/CLionProjects/tr1/trabalho2"
+			"value" : "/home/gabrielcruz/Unb/tr1/trabalho2"
 		}
 	],
 	"kind" : "cache",
