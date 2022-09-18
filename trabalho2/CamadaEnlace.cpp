@@ -8,10 +8,6 @@
 #include <cstdlib>
 using namespace std;
 
-//variavel global utilizada para definir qual será o tipo de enquadramento usado;
-int tipoDeEnquadramento = 0;
-//variavel global utilizada para definir qual será o tipo de controle de erro usado;
-int tipoDeControleDeErro = 1;
 //variavel global utilizada para definir bit de paridade;
 int bitParidade = -1; //Para que saibamos que não utilizamos o controle de erro por bit de paridade, definimos como -1;
 //variavel global utilizada para definir CRC;
@@ -144,7 +140,15 @@ void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
 // -----------------------Camada Receptora-----------------------
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
-
+    try{
+        if (quadro.size() != (quadro[0] + 1)){
+            throw 404;
+        }
+    }
+    catch(int e){
+        cout << "Tamanho quadro errado" << e << endl;
+    }
+    return quadro;
 }
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
@@ -153,53 +157,61 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> q
 
     //Algoritmo de Desequadramento
     //Codigo DLE = 16, Codigo ESC = 27
-    if (quadro[0] == 16) {
-        indexQuadro++;
+    try{
+        if (quadro[0] == 16) {
+            indexQuadro++;
 
-        while (true) {
-            if (quadro[indexQuadro] == 16) {
-                break;
-            } else if (quadro[indexQuadro] == 27) {
-                indexQuadro += 2;
-            } else {
-                quadroDesenquadrado.push_back(quadro[indexQuadro]);
-                indexQuadro++;
+            while (true) {
+                if (quadro[indexQuadro] == 16) {
+                    break;
+                } else if (quadro[indexQuadro] == 27) {
+                    indexQuadro += 2;
+                } else {
+                    quadroDesenquadrado.push_back(quadro[indexQuadro]);
+                    indexQuadro++;
+                }
             }
         }
-
-        return quadroDesenquadrado;
-    } else {
-        cout << "Quadro não começa com flag designada." << endl;
+        else {
+            throw 404;
+        }
     }
+    catch(int e){
+        cout << "Tamanho quadro errado" << e << endl;
+    }
+    return quadroDesenquadrado;
 }
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
-    vector<int> quadroEnquadrado;
+    vector<int> quadroDesenquadrado;
 
     switch (tipoDeEnquadramento) {
         case 0: //Contagem de Caracteres
-            quadroEnquadrado = CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(quadro);
+            quadroDesenquadrado = CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(quadro);
             break;
         case 1: //Insercao de Byte
-            quadroEnquadrado = CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(quadro);
+            quadroDesenquadrado = CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(quadro);
             break;
     }
+
+    return quadroDesenquadrado;
 }
 vector<int> CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade (vector<int> quadro) {
     int somaQuadro = 0;
+    int bitCorrecao;
 
     for (int i = 0; i < quadro.size(); i++) {
         somaQuadro += quadro[i];
-        //transformar em bit? aqui ta somando o byte. nao importa pra soma, mas talvez importe pro insert
     }
 
-    if ((somaQuadro % 2) == quadro[quadro.size()]) {
-        quadro.pop_back();
-    } else {
+    bitCorrecao = somaQuadro % 2;
+
+    if (bitCorrecao != bitParidade) {
         cout << "Erro: Bit de paridade incompatível" << endl;
     }
-
-    return quadro;
+    else {
+        return quadro;
+    }
 }
 
 vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
@@ -208,6 +220,7 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
     string quadroCompleto = "";
     string resto = "";
     string crc_check = "";
+    vector<int> subvector = {quadro.begin(), quadro.end() - 4};
 
     for (int i = 0; i < (quadro.size() - 4); i++) {
         string binchar = bitset<8>(quadro[i]).to_string();
@@ -245,12 +258,21 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
         swap(resto[j], resto[resto.length() - j - 1]);
     }
 
-    crc = resto;
+    crc = bitset<8>(quadro[-4]).to_string() + bitset<8>(quadro[-3]).to_string()
+            + bitset<8>(quadro[-2]).to_string() + bitset<8>(quadro[-1]).to_string();
+
+    crc_check = resto;
+
+    if (crc == crc_check){
+        return subvector;
+    }
+    else {
+        cout << "Erro na checagem do CRC" << endl;
+    }
 
 }
 
 vector<int> CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
-    int tipoDeControleDeErro = 0;
     vector<int> quadroChecado;
 
     switch (tipoDeControleDeErro) {
@@ -259,16 +281,19 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
             break;
         case 1:
             quadroChecado = CamadaEnlaceDadosReceptoraControleDeErroCRC(quadro);
-
+            break;
     }
+
+    return quadroChecado;
 }
 
 void CamadaEnlaceDadosReceptora (vector<int> quadro) {
     vector<int> quadroDesenquadrado;
+    vector<int> quadroChecado;
 
-    quadroDesenquadrado = CamadaEnlaceDadosReceptoraEnquadramento(quadro);
+    quadroChecado = CamadaEnlaceDadosReceptoraControleDeErro(quadro);
 
-    //CamadaEnlaceDadosReceptoraControleDeErro(quadro)
+    quadroDesenquadrado = CamadaEnlaceDadosReceptoraEnquadramento(quadroChecado);
 
     CamadaDeAplicacaoReceptora(quadroDesenquadrado);
 }

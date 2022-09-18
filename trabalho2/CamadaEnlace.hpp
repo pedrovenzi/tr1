@@ -12,6 +12,10 @@ using namespace std;
 
 extern int bitParidade;
 extern string crc;
+//variavel global utilizada para definir qual será o tipo de enquadramento usado;
+extern int tipoDeEnquadramento;
+//variavel global utilizada para definir qual será o tipo de controle de erro usado;
+extern int tipoDeControleDeErro;
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vector<int> quadro);
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int> quadro);

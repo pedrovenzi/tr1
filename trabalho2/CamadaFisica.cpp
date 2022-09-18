@@ -23,6 +23,14 @@ void AplicacaoTransmissora(void) {
     cout << "Selecione o tipo de codificacao (0 - Binaria, 1 - Manchester, 2 - Bipolar): " << endl;
     cin >> tipoDeCodificacao;
 
+    //captando qual sera o enquadramento usado por meio do cin;
+    cout << "Selecione o tipo de enquadramento (0 - Contagem de Caracteres, 1 - Insercao de Bytes): " << endl;
+    cin >> tipoDeEnquadramento;
+
+    //captando qual sera o controle de erro usado por meio do cin;
+    cout << "Selecione o tipo de controle de erro (0 - Bit de Paridade, 1 - CRC): " << endl;
+    cin >> tipoDeCodificacao;
+
     cout << "Mensagem a ser transmitida: " << mensagem_transmitida << endl;
     cout << "-> Chamando Camada De Aplicacao Transmissora..." << endl;
     CamadaDeAplicacaoTransmissora(mensagem_transmitida);
@@ -91,12 +99,12 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBinaria(vector<int> quadro) {
     }
 
     if (bitParidade != -1) {
-        fluxoBrutoDeBits.push_back(bitParidade);
+        fluxoBrutoDeBits.push_back(bitParidade - 48);
     }
 
     if (crc != "") {
         for (int i = 0; i < (crc.size()); i++){
-            fluxoBrutoDeBits.push_back(crc[i]);
+            fluxoBrutoDeBits.push_back(crc[i] - 48);
         }
     }
 
@@ -315,9 +323,14 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBinaria(vector<int>  fluxoBrutoDeB
     //variaveis auxiliares para processo de decodificacao;
     string bin_char_str;
     vector<int> quadro;
+    int retirar_paridade = 0;
 
     //algoritmo de DECODIFICACAO;
-    for (int i = 0; i < (fluxoBrutoDeBits.size() / 8); i++) {
+    if (bitParidade != -1){
+        retirar_paridade = 1;
+    }
+
+    for (int i = 0; i < ((fluxoBrutoDeBits.size() / 8) - retirar_paridade); i++) {
         for (int j = 0; j < 8; j++) {
             bin_char_str += (fluxoBrutoDeBits[j + (i * 8)] + 48);
         }
@@ -326,6 +339,11 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBinaria(vector<int>  fluxoBrutoDeB
         quadro.push_back(bin_char_int);
         bin_char_str = "";
     }
+
+    if (retirar_paridade == 1){
+        bitParidade = fluxoBrutoDeBits[-1];
+    }
+
 
     //imprimindo quadro resultante da decodificacao;
     cout << "   Quadro Resultante da Decodificacao Binaria: " << endl;
@@ -344,9 +362,14 @@ vector<int> CamadaFisicaReceptoraDecodificacaoManchester(vector<int>  fluxoBruto
     string bin_char_str;
     string bin_pair;
     vector<int> quadro;
+    int retirar_paridade = 0;
 
     //algoritmo de DECODIFICACAO;
-    for (int i = 0; i < (fluxoBrutoDeBits.size() / 16); i++) {
+    if (bitParidade != -1){
+        retirar_paridade = 1;
+    }
+
+    for (int i = 0; i < ((fluxoBrutoDeBits.size() / 16) - 2); i++) {
         for (int j = 0; j < 8; j++) {
             bin_pair += fluxoBrutoDeBits[(j * 2) + (i * 16)] + 48;
             bin_pair += fluxoBrutoDeBits[(j * 2) + 1 + (i * 16)] + 48;
@@ -365,6 +388,16 @@ vector<int> CamadaFisicaReceptoraDecodificacaoManchester(vector<int>  fluxoBruto
         bin_char_str = "";
     }
 
+    if (retirar_paridade == 1){
+        bin_pair += fluxoBrutoDeBits[-2] + 48;
+        bin_pair += fluxoBrutoDeBits[-1] + 48;
+        if (bin_pair == "01") {
+            bitParidade = 0;
+        } else if (bin_pair == "10") {
+            bitParidade = 1;
+        }
+    }
+
     //imprimindo quadro resultante da decodificacao;
     cout << "   Quadro Resultante da Decodificacao Manchester: " << endl;
     cout << "   ";
@@ -377,18 +410,31 @@ vector<int> CamadaFisicaReceptoraDecodificacaoManchester(vector<int>  fluxoBruto
     //retornando quadro pós decodificacao
     return quadro;
 };
-vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int>  fluxoBrutoDeBits) {
+vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int> fluxoBrutoDeBits) {
     //variaveis auxiliares para processo de decodificacao
     string bin_char_str;
     int bin_unsigned;
     vector<int> quadro;
+    int retirar_paridade = 0;
 
      //algoritmo de decodificacao;
-    for (int i = 0; i < (fluxoBrutoDeBits.size() / 8); i++) {
+    if (bitParidade != -1){
+        retirar_paridade = 1;
+    }
+
+    for (int i = 0; i < ((fluxoBrutoDeBits.size() / 8) - 1); i++) {
         for (int j = 0; j < 8; j++) {
             bin_unsigned = fluxoBrutoDeBits[j + (i * 8)];
             if (bin_unsigned == -1) {
                 bin_unsigned = 1;
+            }
+            try{
+                if (bin_unsigned == -2){
+                    throw 404;
+                }
+            }
+            catch(int e){
+                cout << "Sinal está errado, erro" << e << endl;
             }
             bin_char_str += (bin_unsigned + 48);
         }
@@ -396,6 +442,22 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int>  fluxoBrutoDeB
         ulong bin_char_int = bitset<8>(bin_char_str).to_ulong();
         quadro.push_back(bin_char_int);
         bin_char_str = "";
+    }
+
+    if (retirar_paridade == 1){
+        bin_unsigned = fluxoBrutoDeBits[-1];
+        if (bin_unsigned == -1) {
+            bin_unsigned = 1;
+        }
+        try{
+            if (bin_unsigned == -2){
+                throw 404;
+            }
+        }
+        catch(int e){
+            cout << "Sinal está errado, erro" << e << endl;
+        }
+        bitParidade = bin_unsigned;
     }
 
     //imprimindo quadro resultante da decodificacao;
