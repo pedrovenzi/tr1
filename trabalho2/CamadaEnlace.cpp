@@ -16,6 +16,7 @@ string crc = "";
 // -----------------------Camada Transmissora-----------------------
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
+    //adicionando a quantidade de caracteres no inicio do nosso vetor
     quadro.insert(quadro.begin(), quadro.size());
 
     return quadro;
@@ -23,7 +24,7 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vecto
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
     vector<int> quadroCorrigido;
-    //vector<int>::iterator iteradorQuadro = quadro.begin();
+
 
     //Algoritmo de Enquadramento
     //Codigo DLE = 16, Codigo ESC = 27
@@ -44,7 +45,7 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
     vector<int> quadroEnquadrado;
-
+    //com base no enquadramento escolhida pelo input, chamar a funcao desejada;
     switch (tipoDeEnquadramento) {
         case 0: //Contagem de Caracteres
             quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(quadro);
@@ -62,7 +63,6 @@ void CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadr
 
     for (int i = 0; i < quadro.size(); i++) {
         somaQuadro += quadro[i];
-        //transformar em bit? aqui ta somando o byte. nao importa pra soma, mas talvez importe pro insert
     }
 
     bitParidade = somaQuadro % 2;
@@ -115,7 +115,7 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
 }
 
 void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
-
+    //com base no tipo de controle de erro escolhida pelo input, chamar a funcao desejada;
     switch (tipoDeControleDeErro) {
         case 0:
             CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade(quadro);
@@ -140,6 +140,7 @@ void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
 // -----------------------Camada Receptora-----------------------
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
+    //Verificar existencia de erro utilizando a contagem de caracteres como enquadramento
     try{
         if (quadro.size() != (quadro[0] + 1)){
             throw 404;
@@ -148,6 +149,7 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<i
     catch(int e){
         cout << "Tamanho quadro errado" << e << endl;
     }
+    //algoritmo de desenquadramento
     vector<int> quadroDescontado = {quadro.begin() + 1, quadro.end()};
     return quadroDescontado;
 }
@@ -156,6 +158,7 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> q
     vector<int> quadroDesenquadrado;
     int indexQuadro = 0;
 
+    //Verificar existencia de erro utilizando o inserção de bytes como enquadramento e 'desenquadrar'
     //Algoritmo de Desequadramento
     //Codigo DLE = 16, Codigo ESC = 27
     try{
@@ -185,7 +188,7 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> q
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
     vector<int> quadroDesenquadrado;
-
+    //com base no tipo de enquadramento escolhida pelo input, chamar a funcao desejada para desenquadramento;
     switch (tipoDeEnquadramento) {
         case 0: //Contagem de Caracteres
             quadroDesenquadrado = CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(quadro);
@@ -275,7 +278,7 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
 
 vector<int> CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
     vector<int> quadroChecado;
-
+    //com base no tipo de controle de erro escolhido pelo input, chamar a funcao desejada;
     switch (tipoDeControleDeErro) {
         case 0:
             quadroChecado = CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade(quadro);
