@@ -35,7 +35,7 @@ void AplicacaoTransmissora(void) {
 
     //captando qual sera o controle de erro usado por meio do cin;
     cout << "Selecione o tipo de controle de erro (0 - Bit de Paridade, 1 - CRC): " << endl;
-    cin >> tipoDeCodificacao;
+    cin >> tipoDeControleDeErro;
 
     cout << "Mensagem a ser transmitida: " << mensagem_transmitida << endl;
     cout << "-> Chamando Camada De Aplicacao Transmissora..." << endl;

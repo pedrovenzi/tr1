@@ -259,8 +259,8 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
         swap(resto[j], resto[resto.length() - j - 1]);
     }
 
-    crc = bitset<8>(quadro[-4]).to_string() + bitset<8>(quadro[-3]).to_string()
-            + bitset<8>(quadro[-2]).to_string() + bitset<8>(quadro[-1]).to_string();
+    crc = bitset<8>(quadro[quadro.size() - 4]).to_string() + bitset<8>(quadro[quadro.size() - 3]).to_string()
+            + bitset<8>(quadro[quadro.size() - 2]).to_string() + bitset<8>(quadro[quadro.size() - 1]).to_string();
 
     crc_check = resto;
 
