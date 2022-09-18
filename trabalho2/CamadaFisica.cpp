@@ -428,7 +428,7 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int> fluxoBrutoDeBi
         retirar_paridade = 1;
     }
 
-    for (int i = 0; i < ((fluxoBrutoDeBits.size() / 8) - 1); i++) {
+    for (int i = 0; i < ((fluxoBrutoDeBits.size() - retirar_paridade) / 8); i++) {
         for (int j = 0; j < 8; j++) {
             bin_unsigned = fluxoBrutoDeBits[j + (i * 8)];
             if (bin_unsigned == -1) {
@@ -451,7 +451,7 @@ vector<int> CamadaFisicaReceptoraDecodificacaoBipolar(vector<int> fluxoBrutoDeBi
     }
 
     if (retirar_paridade == 1){
-        bin_unsigned = fluxoBrutoDeBits[-1];
+        bin_unsigned = fluxoBrutoDeBits.back();
         if (bin_unsigned == -1) {
             bin_unsigned = 1;
         }
