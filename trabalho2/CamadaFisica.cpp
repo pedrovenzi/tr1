@@ -375,7 +375,7 @@ vector<int> CamadaFisicaReceptoraDecodificacaoManchester(vector<int>  fluxoBruto
         retirar_paridade = 1;
     }
 
-    for (int i = 0; i < ((fluxoBrutoDeBits.size() / 16) - 2); i++) {
+    for (int i = 0; i < ((fluxoBrutoDeBits.size() - (retirar_paridade * 2)) / 16); i++) {
         for (int j = 0; j < 8; j++) {
             bin_pair += fluxoBrutoDeBits[(j * 2) + (i * 16)] + 48;
             bin_pair += fluxoBrutoDeBits[(j * 2) + 1 + (i * 16)] + 48;
@@ -395,8 +395,8 @@ vector<int> CamadaFisicaReceptoraDecodificacaoManchester(vector<int>  fluxoBruto
     }
 
     if (retirar_paridade == 1){
-        bin_pair += fluxoBrutoDeBits[-2] + 48;
-        bin_pair += fluxoBrutoDeBits[-1] + 48;
+        bin_pair += fluxoBrutoDeBits[fluxoBrutoDeBits.size() - 2] + 48;
+        bin_pair += fluxoBrutoDeBits[fluxoBrutoDeBits.size() - 1] + 48;
         if (bin_pair == "01") {
             bitParidade = 0;
         } else if (bin_pair == "10") {
