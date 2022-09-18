@@ -71,7 +71,6 @@ void CamadaDeAplicacaoTransmissora(string mensagem_transmitida) {
     }
     cout << endl << endl;
 
-//    cout << "-> Chamando Camada Fisica Transmissora..." << endl << endl;
     CamadaEnlaceDadosTransmissora(quadro);
 };
 

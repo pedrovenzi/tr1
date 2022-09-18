@@ -61,15 +61,17 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
 void CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadro) {
     int somaQuadro = 0;
 
+    //algoritmo para identificar paridade
+
     for (int i = 0; i < quadro.size(); i++) {
         somaQuadro += quadro[i];
     }
-
+    //se quantidade de '1' for par retorna zero, se impar retorna 1
     bitParidade = somaQuadro % 2;
 }
 
 void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
-    ulong polinomioGerador = 4374732215; // CRC-32
+    ulong polinomioGerador = 4374732215; // polinomio gerador CRC-32
     string polinomioStr = bitset<33>(polinomioGerador).to_string();
     string quadroCompleto = "";
     string resto = "";
@@ -201,9 +203,11 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
     return quadroDesenquadrado;
 }
 vector<int> CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade (vector<int> quadro) {
+    //variaveis auxliares para essa funcao
     int somaQuadro = 0;
     int bitCorrecao;
 
+    // algoritmo para verificar a existências de erro no bit de paridade
     for (int i = 0; i < quadro.size(); i++) {
         somaQuadro += quadro[i];
     }
