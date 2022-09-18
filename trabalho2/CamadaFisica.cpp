@@ -1,6 +1,7 @@
 //adicionando bibliotecas necessarias;
 #include <iostream>
 #include <bitset>
+#include <cmath>
 #include "CamadaFisica.hpp"
 #include "CamadaEnlace.hpp"
 #include <string>
@@ -15,6 +16,10 @@ int tipoDeEnquadramento;
 
 //variavel global utilizada para definir qual o tipo de controle de erro utilizado;
 int tipoDeControleDeErro;
+
+//variavel global utilizada para definir qual a porcentagem de erro utilizada;
+int porcentagemDeErros;
+
 
 // -----------------------Comeco da Camada Transmissora-----------------------
 
@@ -36,6 +41,10 @@ void AplicacaoTransmissora(void) {
     //captando qual sera o controle de erro usado por meio do cin;
     cout << "Selecione o tipo de controle de erro (0 - Bit de Paridade, 1 - CRC): " << endl;
     cin >> tipoDeControleDeErro;
+
+    //captando qual sera a porcentagem de erro usada por meio do cin;
+    cout << "Digite um número de 0 a 100 para a porcentagem de erro: " << endl;
+    cin >> porcentagemDeErros;
 
     cout << "Mensagem a ser transmitida: " << mensagem_transmitida << endl;
     cout << "-> Chamando Camada De Aplicacao Transmissora..." << endl;
@@ -154,11 +163,6 @@ vector<int> CamadaFisicaTransmissoraCodificacaoManchester(vector<int> quadro) {
         }
     }
 
-//    fluxoBrutoDeBits.insert(fluxo.begin()+0, hamming[0]) // gambiarra para hamming com vetor de bits de paridade
-//
-//    for (hamming) {
-//        fluxoBrutoDeBits.insert(fluxo.begin() + (2 ** i), hamming[i+1]) // inserir paridade no fluxo de bits
-//    }
 
     //imprimindo na tela o fluxo de bits pós codificacao;
     cout << "   Fluxo Bruto de Bits Resultante da Codificacao Manchester: " << endl;
@@ -253,10 +257,8 @@ vector<int> CamadaFisicaTransmissoraCodificacaoBipolar(vector<int> quadro) {
 
 void MeioDeComunicacao(vector<int> fluxoBrutoDeBits) {
     //varaiveis do tipo vetor para simular a ida dos bits de um ponto para outro;
-    int erro, porcentagemDeErros;
     vector<int> fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
 
-    porcentagemDeErros = 0;
 
     //imprimindo bits que estao no ponto A;
     fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
@@ -276,8 +278,8 @@ void MeioDeComunicacao(vector<int> fluxoBrutoDeBits) {
             }
             else {
                 fluxoBrutoDeBitsPontoA[i] == 0 ?
-                fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]++) :
-                fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i]--);
+                fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i] + 1) :
+                fluxoBrutoDeBitsPontoB.push_back(fluxoBrutoDeBitsPontoA[i] - 1);
             }
         }
         else {

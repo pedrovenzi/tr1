@@ -354,6 +354,17 @@ CMakeFiles/trabalho2.dir/CamadaFisica.cpp.o: ../CamadaFisica.cpp \
   /usr/include/c++/9/istream \
   /usr/include/c++/9/bits/istream.tcc \
   /usr/include/c++/9/bitset \
+  /usr/include/c++/9/cmath \
+  /usr/include/math.h \
+  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
   ../CamadaFisica.hpp \
   /usr/include/c++/9/vector \
   /usr/include/c++/9/bits/stl_construct.h \
@@ -521,6 +532,18 @@ CMakeFiles/trabalho2.dir/simulador.cpp.o: ../simulador.cpp \
 
 ../simulador.cpp:
 
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/usr/include/math.h:
+
 ../CamadaFisica.cpp:
 
 ../CamadaFisica.hpp:
@@ -530,6 +553,8 @@ CMakeFiles/trabalho2.dir/simulador.cpp.o: ../simulador.cpp \
 /usr/include/c++/9/bits/stl_uninitialized.h:
 
 /usr/include/c++/9/bits/istream.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
 /usr/include/c++/9/istream:
 
@@ -709,6 +734,8 @@ CMakeFiles/trabalho2.dir/simulador.cpp.o: ../simulador.cpp \
 
 /usr/include/wchar.h:
 
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
@@ -718,6 +745,8 @@ CMakeFiles/trabalho2.dir/simulador.cpp.o: ../simulador.cpp \
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h:
+
+/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
 /usr/include/c++/9/bits/cxxabi_init_exception.h:
 
@@ -829,6 +858,8 @@ CMakeFiles/trabalho2.dir/simulador.cpp.o: ../simulador.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
 /usr/include/x86_64-linux-gnu/bits/locale.h:
@@ -874,6 +905,8 @@ CMakeFiles/trabalho2.dir/simulador.cpp.o: ../simulador.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/c++/9/cmath:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
