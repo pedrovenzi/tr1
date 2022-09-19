@@ -16,6 +16,7 @@ string crc = "";
 // -----------------------Camada Transmissora-----------------------
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
+    //adicionando a quantidade de caracteres no inicio do nosso vetor
     quadro.insert(quadro.begin(), quadro.size());
 
     return quadro;
@@ -23,7 +24,7 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(vecto
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
     vector<int> quadroCorrigido;
-    //vector<int>::iterator iteradorQuadro = quadro.begin();
+
 
     //Algoritmo de Enquadramento
     //Codigo DLE = 16, Codigo ESC = 27
@@ -44,7 +45,7 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramentoInsercaoDeBytes(vector<int
 
 vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
     vector<int> quadroEnquadrado;
-
+    //com base no enquadramento escolhida pelo input, chamar a funcao desejada;
     switch (tipoDeEnquadramento) {
         case 0: //Contagem de Caracteres
             quadroEnquadrado = CamadaEnlaceDadosTransmissoraEnquadramentoContagemDeCaracteres(quadro);
@@ -60,20 +61,22 @@ vector<int> CamadaEnlaceDadosTransmissoraEnquadramento (vector<int> quadro) {
 void CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade (vector<int> quadro) {
     int somaQuadro = 0;
 
+    //algoritmo para identificar paridade
+
     for (int i = 0; i < quadro.size(); i++) {
         somaQuadro += quadro[i];
-        //transformar em bit? aqui ta somando o byte. nao importa pra soma, mas talvez importe pro insert
     }
-
+    //se quantidade de '1' for par retorna zero, se impar retorna 1
     bitParidade = somaQuadro % 2;
 }
 
 void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
-    ulong polinomioGerador = 4374732215; // CRC-32
+    ulong polinomioGerador = 4374732215; // polinomio gerador CRC-32
     string polinomioStr = bitset<33>(polinomioGerador).to_string();
     string quadroCompleto = "";
     string resto = "";
 
+    //inversão de todos os bytes do nosso quadro
     for (int i = 0; i < quadro.size(); i++) {
         string binchar = bitset<8>(quadro[i]).to_string();
         for (int j = 0; j < (binchar.length() / 2); j++){
@@ -82,13 +85,18 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
         quadroCompleto += binchar;
     }
 
+    //adicao de 32 bits '0' no final do nosso dado
     quadroCompleto += "00000000000000000000000000000000";
     cout << quadroCompleto << endl;
 
+    //'xor' (ou invertido) dos 4 primeiros bytes com o 0xFFFFFFFF
     for (int i = 0; i < 32; i++) {
         quadroCompleto[i] = (quadroCompleto[i]^1);
     }
 
+    //divisao do dado utilizando o polinomio gerador do crc-32.
+    //Caso nosso dado comece com zero no momento da divisão, ele é ignorado. Caso contrario segue o algoritmo abaixo
+    //Essa divisã é feita com xor
     for (int i = 0; i < (quadroCompleto.size() - 33); i++) {
         if (quadroCompleto[i] != '0') {
             resto = quadroCompleto.substr(i, 33);
@@ -102,10 +110,12 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
     resto = quadroCompleto.substr(quadroCompleto.size() - 32, 32);
     cout << resto << endl;
 
+    //flip dos bits
     for (int i = 0; i < 32; i++) {
         resto[i] = (resto[i]^1);
     }
 
+    //reverter todos os bits
     for (int j = 0; j < (resto.length() / 2); j++){
         swap(resto[j], resto[resto.length() - j - 1]);
     }
@@ -115,7 +125,7 @@ void CamadaEnlaceDadosTransmissoraControleDeErroCRC (vector<int> quadro) {
 }
 
 void CamadaEnlaceDadosTransmissoraControleDeErro (vector<int> quadro) {
-
+    //com base no tipo de controle de erro escolhida pelo input, chamar a funcao desejada;
     switch (tipoDeControleDeErro) {
         case 0:
             CamadaEnlaceDadosTransmissoraControleDeErroBitDeParidade(quadro);
@@ -140,6 +150,7 @@ void CamadaEnlaceDadosTransmissora (vector<int> quadro) {
 // -----------------------Camada Receptora-----------------------
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<int> quadro) {
+    //Verificar existencia de erro utilizando a contagem de caracteres como enquadramento
     try{
         if (quadro.size() != (quadro[0] + 1)){
             throw 404;
@@ -148,13 +159,16 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(vector<i
     catch(int e){
         cout << "Tamanho quadro errado" << e << endl;
     }
-    return quadro;
+    //algoritmo de desenquadramento
+    vector<int> quadroDescontado = {quadro.begin() + 1, quadro.end()};
+    return quadroDescontado;
 }
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> quadro) {
     vector<int> quadroDesenquadrado;
     int indexQuadro = 0;
 
+    //Verificar existencia de erro utilizando o inserção de bytes como enquadramento e 'desenquadrar'
     //Algoritmo de Desequadramento
     //Codigo DLE = 16, Codigo ESC = 27
     try{
@@ -184,7 +198,7 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramentoInsercaoDeBytes(vector<int> q
 
 vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
     vector<int> quadroDesenquadrado;
-
+    //com base no tipo de enquadramento escolhida pelo input, chamar a funcao desejada para desenquadramento;
     switch (tipoDeEnquadramento) {
         case 0: //Contagem de Caracteres
             quadroDesenquadrado = CamadaEnlaceDadosReceptoraEnquadramentoContagemDeCaracteres(quadro);
@@ -197,9 +211,11 @@ vector<int> CamadaEnlaceDadosReceptoraEnquadramento (vector<int> quadro) {
     return quadroDesenquadrado;
 }
 vector<int> CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade (vector<int> quadro) {
+    //variaveis auxliares para essa funcao
     int somaQuadro = 0;
     int bitCorrecao;
 
+    // algoritmo para verificar a existências de erro no bit de paridade
     for (int i = 0; i < quadro.size(); i++) {
         somaQuadro += quadro[i];
     }
@@ -222,6 +238,7 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
     string crc_check = "";
     vector<int> subvector = {quadro.begin(), quadro.end() - 4};
 
+    //inversão de todos os bytes do nosso quadro
     for (int i = 0; i < (quadro.size() - 4); i++) {
         string binchar = bitset<8>(quadro[i]).to_string();
         for (int j = 0; j < (binchar.length() / 2); j++){
@@ -237,6 +254,9 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
         quadroCompleto[i] = (quadroCompleto[i]^1);
     }
 
+    //divisao do dado utilizando o polinomio gerador do crc-32.
+    //Caso nosso dado comece com zero no momento da divisão, ele é ignorado. Caso contrario segue o algoritmo abaixo
+    //Essa divisã é feita com xor
     for (int i = 0; i < (quadroCompleto.size() - 33); i++) {
         if (quadroCompleto[i] != '0') {
             resto = quadroCompleto.substr(i, 33);
@@ -250,19 +270,22 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
     resto = quadroCompleto.substr(quadroCompleto.size() - 32, 32);
     cout << resto << endl;
 
+    //flip dos bits
     for (int i = 0; i < 32; i++) {
         resto[i] = (resto[i]^1);
     }
 
+    //revertendo os bits
     for (int j = 0; j < (resto.length() / 2); j++){
         swap(resto[j], resto[resto.length() - j - 1]);
     }
 
-    crc = bitset<8>(quadro[-4]).to_string() + bitset<8>(quadro[-3]).to_string()
-            + bitset<8>(quadro[-2]).to_string() + bitset<8>(quadro[-1]).to_string();
+    crc = bitset<8>(quadro[quadro.size() - 4]).to_string() + bitset<8>(quadro[quadro.size() - 3]).to_string()
+            + bitset<8>(quadro[quadro.size() - 2]).to_string() + bitset<8>(quadro[quadro.size() - 1]).to_string();
 
     crc_check = resto;
 
+    //verificacao se o crc está correto
     if (crc == crc_check){
         return subvector;
     }
@@ -274,7 +297,7 @@ vector<int> CamadaEnlaceDadosReceptoraControleDeErroCRC (vector<int> quadro) {
 
 vector<int> CamadaEnlaceDadosReceptoraControleDeErro (vector<int> quadro) {
     vector<int> quadroChecado;
-
+    //com base no tipo de controle de erro escolhido pelo input, chamar a funcao desejada;
     switch (tipoDeControleDeErro) {
         case 0:
             quadroChecado = CamadaEnlaceDadosReceptoraControleDeErroBitDeParidade(quadro);
